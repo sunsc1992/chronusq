@@ -114,6 +114,7 @@ namespace ChronusQ {
         break;
 
       case LEN_ELECTRIC_MULTIPOLE:
+        std::cout<<"now compute len multipole"<<std::endl;
         lenElectric = std::make_shared<MultipoleInts<IntsT>>(NB, op.second, true);
         // If 4C, we convert OnePInts stored in MultipoleInts object to be OnePRelInts (only handles dipole)
         if(op.second == 1 and options.OneEScalarRelativity) lenElectric->convert2OnePRelInts(NB, options.OneESpinOrbit);

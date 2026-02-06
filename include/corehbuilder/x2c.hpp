@@ -66,6 +66,7 @@ namespace ChronusQ {
 
     // Transformations for momentum space
     IntsT*  UK = nullptr; ///< K transformation between p- and R-space
+    MatsT*  UK2c = nullptr; ///< K transformation between p- and R-space
     double* p  = nullptr; ///< p momentum eigens
 
     // X and Y matrices, means differently in real- and momentum-spaces.

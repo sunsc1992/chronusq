@@ -808,8 +808,9 @@ namespace ChronusQ {
       EMPerturbation&, OPERATOR op, const HamiltonianOptions &options) {
     if (options.basisType != REAL_GTO)
       CErr("Only Real GTOs are allowed in VectorInts<double>",std::cout);
-    if (options.OneEScalarRelativity or options.OneESpinOrbit)
-      CErr("Relativistic multipole integrals are implemented in OnePRelInts",std::cout);
+//SS use libint or in house 
+//    if (options.OneEScalarRelativity or options.OneESpinOrbit)
+//      CErr("Relativistic multipole integrals are implemented in OnePRelInts",std::cout);
 
     switch (op) {
     case OVERLAP:
@@ -1042,7 +1043,8 @@ namespace ChronusQ {
         MultipoleRelDriverLibcint(mol, basis, options);
         return;
       }    
-      CErr("Relativistic multipole integrals are implemented with Libint2",std::cout);
+//SS: here use libint and in house ints for relativistic multipole ints
+//      CErr("Relativistic multipole integrals are implemented with Libint2",std::cout);
     }
 
     std::vector<double*> _multipole(1, nullptr);
@@ -1077,10 +1079,10 @@ namespace ChronusQ {
           if (highOrder() == 3) {
             std::copy_n(octupolePointers().begin(), 10, std::back_inserter(_multipole));
             libOp = libint2::Operator::emultipole3;
-          } else
+          } else if (highOrder()>3)
             CErr("Requested operator is NYI in MultipoleInts.",std::cout);
         }
-      }
+      } 
       OnePInts<double>::OnePDriverLibint(libOp,mol,basis,_multipole,options.particle);
       CQMemManager::get().free(_multipole[0]);
       break;
