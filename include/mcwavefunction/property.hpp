@@ -211,7 +211,6 @@ namespace ChronusQ {
     std::cout << std::setw(15) << std::right << "f = "
               << std::setprecision(12) << std::fixed << f << std::endl;
 
-    // SS
     if( savFile.exists() ) {
       std::string nameoftdm("MCWFN/TransitionDipole_");
       std::string state1(std::to_string(s1));
@@ -226,6 +225,24 @@ namespace ChronusQ {
       }
 
       savFile.safeWriteData(nameoftdm, &tdxyz[0], {3});
+
+      //SS start
+      std::string nameoftdmat("MCWFN/TDM1of");
+      nameoftdmat.append(state1);
+      nameoftdmat.append("to");
+      nameoftdmat.append(state2);
+      // std::cout<<"printSS"<<nameoftdm<<std::endl;
+    
+      savFile.safeWriteData(nameoftdmat,(tmpTDM1.pointer()), {nCorrO,nCorrO}); 
+      std::cout<<"finished saving"<<std::endl;
+ 
+      std::string nameoftdmat2("MCWFN/TDM2of");
+      nameoftdmat2.append(state2);
+      nameoftdmat2.append("to");
+      nameoftdmat2.append(state1);
+
+      savFile.safeWriteData(nameoftdmat2,(tmpTDM2.pointer()), {nCorrO,nCorrO}); 
+      //SS end
     }
 
 
